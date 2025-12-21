@@ -2,7 +2,7 @@
 
 A comprehensive interactive visualization platform for learning algorithms through step-by-step visual demonstrations. Built with modern web technologies to make algorithm learning engaging and intuitive.
 
-# live at https://algo-visualizer-ashy-rho.vercel.app/
+# Live At https://algo-visualizer-ashy-rho.vercel.app/
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -13,7 +13,7 @@ A comprehensive interactive visualization platform for learning algorithms throu
 
 ```bash
 # 1. Clone the repository
-git clone <repository-url>
+git clone https://github.com/Fritzcoding/AlgorithmVisualizer.git
 cd AlgorithmVisualizer
 
 # 2. Install dependencies
