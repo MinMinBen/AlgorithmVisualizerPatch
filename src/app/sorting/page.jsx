@@ -22,7 +22,11 @@ class Sort extends Component {
         algo1: 0,
         algo2: 0,
         currentStep: 0,
-        highlightedLines: []
+        currentStep2: 0,
+        highlightedLines: [],
+        highlightedLines2: [],
+        steps1: [],
+        steps2: []
     }
 
     componentDidMount() {
@@ -33,10 +37,10 @@ class Sort extends Component {
 
     render() {
         return (
-            <div className="flex flex-col h-screen">
+            <div className="flex flex-col h-screen algo-page-wrapper">
                 <Navbar title="Sorting Visualizer" />
 
-                <div className="flex flex-1 overflow-hidden">
+                <div className="flex flex-1 overflow-hidden algo-content-panel">
                     <Menu
                         disable={this.state.isRunning}
                         onDoubleChange={this.handleDouble}
@@ -60,9 +64,13 @@ class Sort extends Component {
                             />}
                         <CodeTrace 
                             currentStep={this.state.currentStep}
+                            currentStep2={this.state.currentStep2}
                             totalSteps={0}
                             algorithmCode={this.getAlgorithmCode()}
                             highlightedLines={this.state.highlightedLines}
+                            algorithmCode2={this.state.doubles ? this.getAlgorithmCode2() : null}
+                            highlightedLines2={this.state.highlightedLines2}
+                            isDual={this.state.doubles}
                         />
                     </div>
                 </div>
@@ -146,6 +154,51 @@ class Sort extends Component {
         };
         return algorithms[this.state.algo1] || algorithms[0];
     }
+    getAlgorithmCode2 = () => {
+        const algorithms = {
+            0: [ // Bubble Sort
+                'for (let i = 0; i < arr.length; i++) {',
+                '  for (let j = 0; j < arr.length - i - 1; j++) {',
+                '    if (arr[j] > arr[j + 1]) {',
+                '      [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]',
+                '    }',
+                '  }',
+                '}'
+            ],
+            1: [ // Selection Sort
+                'for (let i = 0; i < arr.length; i++) {',
+                '  let minIdx = i;',
+                '  for (let j = i + 1; j < arr.length; j++) {',
+                '    if (arr[j] < arr[minIdx]) {',
+                '      minIdx = j;',
+                '    }',
+                '  }',
+                '  [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]]',
+                '}'
+            ],
+            2: [ // Insertion Sort
+                'for (let i = 1; i < arr.length; i++) {',
+                '  let key = arr[i];',
+                '  let j = i - 1;',
+                '  while (j >= 0 && arr[j] > key) {',
+                '    arr[j + 1] = arr[j];',
+                '    j--;',
+                '  }',
+                '  arr[j + 1] = key;',
+                '}'
+            ],
+            3: [ // Quick Sort
+                'function quickSort(arr, low, high) {',
+                '  if (low < high) {',
+                '    let pi = partition(arr, low, high);',
+                '    quickSort(arr, low, pi - 1);',
+                '    quickSort(arr, pi + 1, high);',
+                '  }',
+                '}'
+            ]
+        };
+        return algorithms[this.state.algo2] || algorithms[0];
+    }
     handleSort = () => {
 
         this.setState({ isRunning: true });
@@ -190,6 +243,7 @@ class Sort extends Component {
             }
 
         }
+        this.setState({ steps1, steps2, currentStep: 0, currentStep2: 0 });
         this.handleFirst(steps1);
         if (this.state.doubles) this.handleSecond(steps2);
     }
@@ -234,12 +288,26 @@ class Sort extends Component {
         }
     }
     getHighlightedLines = (currentStep, totalSteps) => {
-        // Highlight different lines based on progress
-        const progress = (currentStep / totalSteps) * 100;
-        if (progress < 25) return [0, 1];
-        if (progress < 50) return [1, 2];
-        if (progress < 75) return [2, 3];
-        return [3, 4];
+        // Get the actual line number from the step data
+        const steps = this.state.steps1;
+        if (!steps || steps.length === 0 || currentStep >= steps.length) return [0];
+        
+        const step = steps[currentStep];
+        if (step && step.lineNum !== undefined) {
+            return [step.lineNum];
+        }
+        return [0];
+    }
+    getHighlightedLines2 = (currentStep, totalSteps) => {
+        // Get the actual line number from the step data for second algorithm
+        const steps = this.state.steps2;
+        if (!steps || steps.length === 0 || currentStep >= steps.length) return [0];
+        
+        const step = steps[currentStep];
+        if (step && step.lineNum !== undefined) {
+            return [step.lineNum];
+        }
+        return [0];
     }
     handleSecond = async (steps) => {
         this.setState({ isRunning2: true });
@@ -275,12 +343,35 @@ class Sort extends Component {
                      this.setState({isRunning:false});
                  }
              }*/
-            this.setState({ rects2: prevRect });
+            this.setState({ 
+                rects2: prevRect,
+                currentStep2: i + 1,
+                highlightedLines2: this.getHighlightedLines2(i, steps.length)
+            });
             await sleep(this.state.speed);
             // },i*speed);
         }
     }
-
+    getHighlightedLines2 = (currentStep, totalSteps) => {
+        // More intelligent line highlighting based on algorithm state for algo2
+        const steps = this.state.steps2;
+        if (!steps || steps.length === 0) return [0];
+        
+        const algo = this.state.algo2;
+        if (algo === 0) { // Bubble Sort
+            if (currentStep < steps.length / 2) return [0, 1, 2]; // Outer and inner loop check, comparison
+            return [3, 4, 5]; // After comparison, closing braces
+        } else if (algo === 1) { // Selection Sort
+            if (currentStep < steps.length / 3) return [0, 1, 2]; // Outer loop, minIdx
+            if (currentStep < (steps.length * 2) / 3) return [2, 3, 4]; // Inner loop, comparison
+            return [7, 8]; // Swap section
+        } else if (algo === 2) { // Insertion Sort
+            if (currentStep < steps.length / 3) return [0, 1, 2]; // Outer loop, key assignment
+            if (currentStep < (steps.length * 2) / 3) return [3, 4, 5]; // While loop condition and shift
+            return [6]; // Insert key
+        }
+        return [0];
+    }
 
 }
 function sleep(ms) {

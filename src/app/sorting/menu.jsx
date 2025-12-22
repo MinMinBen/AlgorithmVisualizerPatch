@@ -14,7 +14,7 @@ class Menu extends Component {
     render() {
         return (
             // <div className="bg-gray-100 p-4 flex flex-wrap items-center gap-4">
-            <div className="w-64 bg-gray-100 p-4 space-y-6">
+            <div className="w-64 bg-gray-100 p-4 space-y-6 menu-panel-light">
                 <h2 className="text-lg font-semibold">Settings</h2>
                 
                 <CustomSlider

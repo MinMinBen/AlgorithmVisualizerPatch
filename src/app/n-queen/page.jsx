@@ -24,9 +24,9 @@ class Queen extends Component {
 
     render() {
         return (
-            <div className="flex flex-col h-screen">
+            <div className="flex flex-col h-screen algo-page-wrapper">
                 <Navbar title="8 Queen" />
-                <div className="flex flex-1 overflow-hidden">
+                <div className="flex flex-1 overflow-hidden algo-content-panel">
 
                     <Menu
                         onSpeedChange={this.handleSpeedChange}

@@ -28,9 +28,9 @@ class ConvexHull extends Component {
     }
     render() {
         return (
-            <div className="flex flex-col h-screen">
+            <div className="flex flex-col h-screen algo-page-wrapper">
                 <Navbar title="Convex Hull" />
-                <div className="flex flex-1 overflow-hidden">
+                <div className="flex flex-1 overflow-hidden algo-content-panel">
                     <Menu
                         onRefresh={this.handleRefreshDots}
                         onVisualize={this.handleVisualize}

@@ -48,11 +48,11 @@ class Pathfinder extends Component {
 
     render() {
         return (
-            <div className="flex flex-col h-screen">
+            <div className="flex flex-col h-screen algo-page-wrapper">
 
                 <Navbar title="Pathfinder" />
 
-                <div className="flex flex-1 overflow-hidden">
+                <div className="flex flex-1 overflow-hidden algo-content-panel">
                     <Menu
                         onAlgoChanged={this.handleAlgoChanged}
                         onVisualize={this.handleClick}

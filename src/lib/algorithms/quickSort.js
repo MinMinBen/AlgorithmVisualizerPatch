@@ -11,7 +11,8 @@ export function quickSort(rects2){
         values.push({
             xx:i,
             yy:i,
-            changed:true
+            changed:true,
+            lineNum: 5
         })
     }
     return values;
@@ -21,11 +22,13 @@ export function quickSort(rects2){
 function getPartition(rects, left, right){
     let pivot = rects[right].width
     let it = left-1;
+    // Line 2: for (let j = left; j <= right - 1; j++) {
     for(var j=left;j<=right-1;j++){
+        // Line 3: if (arr[j] < pivot) {
         if( rects[j].width< pivot){
             it++;
             if( it!==j ){
-                // swap(rects[it],rects[j];
+                // Line 3: swap
                 const rect1 = {...rects[it]};
                 const rect2 = {...rects[j]};
                 rects[it] = rect2;
@@ -33,11 +36,13 @@ function getPartition(rects, left, right){
                 values.push({
                     xx:it,
                     yy:j,
-                    changed:true
+                    changed:true,
+                    lineNum: 3
                 })
             }
         }
     }
+    // Line 3: final pivot swap
     if( it+1!==right ){
         const rect1 = {...rects[it+1]};
         const rect2 = {...rects[right]};
@@ -46,14 +51,19 @@ function getPartition(rects, left, right){
         values.push({
             xx:it+1,
             yy:right,
-            changed:true
+            changed:true,
+            lineNum: 3
         })
     }
     return it+1;
 }
+// Line 1: if (low < high) {
 function quick(rects,left,right){
     if( left>=right ) return ;
+    // Line 2: let pi = partition(arr, low, high);
     const partition = getPartition(rects,left,right);
+    // Line 3: quickSort(arr, low, pi - 1);
     quick(rects,left,partition-1);
+    // Line 4: quickSort(arr, pi + 1, high);
     quick(rects,partition+1,right);
 }

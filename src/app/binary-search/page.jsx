@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import EntryPoint from "./entryPoint";
 import Search from "./search";
 import Navbar from '@/components/navbar';
+import StreakBadge from '@/components/streak-badge';
 
 class BinarySearch extends Component {
     state = {
@@ -13,7 +14,7 @@ class BinarySearch extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="algo-page-wrapper min-h-screen">
                 <Navbar title={"Binary Search"} />
                 <br />
                 <br />

@@ -34,9 +34,7 @@ class Puzzle extends Component {
         let classNames;
         return (
 
-            <div style={{ backgroundColor: "#57407c" }}
-                className={'full-height'}
-            >
+            <div className="algo-page-wrapper min-h-screen">
                 <Navbar title={"15 Puzzle"} />
                 <div className={'justify-content-around '}
                     style={{ textAlign: "Center" }}>
@@ -85,7 +83,6 @@ class Puzzle extends Component {
                     {/*/!*    </svg>*!/*/}
                     {/*/!*</SvgLines>*!/*/}
                 </div>
-
             </div>
 
         );

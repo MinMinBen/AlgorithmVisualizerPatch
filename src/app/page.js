@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar";
 import { AlgorithmCards } from "./components/algorithm-cards";
 import Footer from "./components/footer";
 import Hero from "./components/hero";
+import StreakBadge from "@/components/streak-badge";
 
    
 export default function Page() {
@@ -24,6 +25,7 @@ export default function Page() {
       <AlgorithmCards />
     </main>
     <Footer/>
+    <StreakBadge />
   </div>
   
   )

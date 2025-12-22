@@ -18,11 +18,6 @@ class Menu extends Component {
                     options={["0", "1", "2", "3", "4", "5", "6"]}
                     onChange={this.props.setN}
                 />
-                <CustomSelect
-                    title={'R'}
-                    options={["0", "1", "2", "3", "4", "5", "6"]}
-                    onChange={this.props.setR}
-                />
                 <Button
                     className="w-full"
                     onClick={this.props.onReset}

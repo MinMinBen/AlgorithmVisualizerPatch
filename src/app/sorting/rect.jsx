@@ -8,7 +8,7 @@ const Rect = ({ marg, rect }) => {
         } else if (rect.isSorting) {
             return "red";
         } else {
-            return "black"
+            return "white"
         }
     }
 
