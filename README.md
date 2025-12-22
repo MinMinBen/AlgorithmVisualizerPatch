@@ -47,14 +47,13 @@ npm start
 
 ### Algorithm Segments
 
-1. **Pathfinder** - Graph traversal and shortest path algorithms (DFS, BFS, Dijkstra, A*)
+1. **Pathfinder** - Graph traversal and shortest path algorithms (DFS, BFS, Dijkstra)
 2. **Sorting Algorithms** - Comparison-based sorting techniques (Bubble, Quick, Merge, Heap, etc.)
 3. **Prime Numbers** - Prime generation and visualization algorithms (Sieve, Archimedes Spiral)
 4. **N-Queens Problem** - Backtracking algorithm for constraint satisfaction
 5. **Convex Hull** - Computational geometry algorithms (Graham Scan)
 6. **Binary Search** - Interactive binary search game and visualizations
 7. **Recursion Tree** - Recursive algorithm tree visualization (Fibonacci, Binomial, etc.)
-8. **15-Puzzle** - Classic sliding puzzle game with A* solution visualization
 
 ## 📋 Implemented Algorithms
 
@@ -62,7 +61,6 @@ npm start
 - **Depth-First Search (DFS)**
 - **Breadth-First Search (BFS)**
 - **Dijkstra's Algorithm**
-- **A* Search**
 - **Recursive Maze Generation**
 
 ### Sorting Algorithms
@@ -92,9 +90,6 @@ npm start
 
 ### Backtracking
 - **N-Queens Problem**
-
-### Puzzle & Game Algorithms
-- **15-Puzzle Solver** (Sliding puzzle with A* pathfinding)
 
 ## 🛠️ Technology Stack
 
@@ -322,11 +317,6 @@ Contributions are always welcome! Whether it's:
 
 Please feel free to open a Pull Request or create an Issue!
 
-## 📅 Release Timeline
-
-- **Commit 16** - Added Flip Move animation to in-place sorting components
-- **Commit 20** - Added Tree Structure visualization
-- **13 Dec 2024** - **Release v2.0.0**: Major migration from legacy Create React App to Next.js with shadcn/ui components
 
 ## 🙏 Acknowledgements
 
@@ -339,13 +329,9 @@ This project draws inspiration from several excellent resources:
 
 ### Educational Resources & Inspiration
 
-- [University of San Francisco Visualization Site](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
 - [Algorithm Visualizer](https://github.com/algorithm-visualizer)
 - [NUS VisuAlgo](https://visualgo.net/en)
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 💬 Feedback & Support
 
