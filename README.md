@@ -37,18 +37,24 @@ npm start
 
 ## 📚 Project Overview
 
-Explore **20+ algorithms** across **8 different segments** with step-by-step visualization, simplifying the learning process and making it more engaging for better understanding.
+**Algorithm Visualizer** is an interactive, educational web platform designed to demystify complex algorithms through real-time visual demonstrations. The platform makes learning engaging by allowing users to watch algorithms execute step-by-step, control animation speed, and adjust parameters to observe how different inputs affect algorithm behavior.
+
+### Purpose
+- **Learn by Visualization**: Understand algorithm mechanics through animated step-by-step execution
+- **Interactive Exploration**: Adjust parameters and immediately see the visual impact
+- **Comprehensive Coverage**: 24+ algorithms across 8 major computer science domains
+- **Accessible Learning**: Suitable for students, educators, and algorithm enthusiasts of all levels
 
 ### Algorithm Segments
 
-1. **Pathfinder** - Graph traversal and shortest path algorithms
-2. **Sorting Algorithms** - Comparison and exchange-based sorting techniques
-3. **Prime Numbers** - Prime generation and number theory algorithms
-4. **N Queen** - Backtracking algorithm visualization
-5. **Convex Hull** - Computational geometry algorithms
+1. **Pathfinder** - Graph traversal and shortest path algorithms (DFS, BFS, Dijkstra, A*)
+2. **Sorting Algorithms** - Comparison-based sorting techniques (Bubble, Quick, Merge, Heap, etc.)
+3. **Prime Numbers** - Prime generation and visualization algorithms (Sieve, Archimedes Spiral)
+4. **N-Queens Problem** - Backtracking algorithm for constraint satisfaction
+5. **Convex Hull** - Computational geometry algorithms (Graham Scan)
 6. **Binary Search** - Interactive binary search game and visualizations
-7. **Recursion Tree** - Recursive algorithm tree visualization
-8. **15-Puzzle** - Classic sliding puzzle game and solution algorithms
+7. **Recursion Tree** - Recursive algorithm tree visualization (Fibonacci, Binomial, etc.)
+8. **15-Puzzle** - Classic sliding puzzle game with A* solution visualization
 
 ## 📋 Implemented Algorithms
 
@@ -92,95 +98,202 @@ Explore **20+ algorithms** across **8 different segments** with step-by-step vis
 
 ## 🛠️ Technology Stack
 
-### Frontend Framework
-- **Next.js 15.1.0** - React-based full-stack framework with server-side rendering
-- **React 18.3.1** - Modern UI library for building interactive components
-- **React DOM 18.3.1** - React rendering engine for web applications
+### Core Technologies
 
-### UI & Styling
-- **TailwindCSS 3.4.16** - Utility-first CSS framework for responsive design
-- **Tailwind Merge** - Merge Tailwind CSS classes efficiently
-- **Tailwind Animate** - Animation utilities for Tailwind CSS
-- **shadcn/ui** - High-quality React component library
-- **Radix UI** - Unstyled, accessible component primitives
-  - `@radix-ui/react-select` - Accessible select component
-  - `@radix-ui/react-slider` - Range slider component
-  - `@radix-ui/react-switch` - Toggle switch component
-- **Lucide React** - Icon library with 400+ customizable icons
-- **PostCSS & Autoprefixer** - CSS processing and vendor prefixing
+| Technology | Purpose | Version |
+|---|---|---|
+| **Next.js** | React meta-framework with server-side rendering and static export | 15.1.0 |
+| **React.js** | Modern UI library for building interactive components | 18.3.1 |
+| **Node.js & npm** | JavaScript runtime and package manager for dependencies | Latest |
 
-### Animation & Interaction
-- **React Flip Move** - Smooth flip animations for list changes
-- **react-mt-svg-lines** - SVG line drawing animations
-- **Tailwind Animate** - CSS animation utilities
+### Frontend & Styling
 
-### Utilities & Libraries
-- **Lodash 4.17.21** - Utility library for common programming tasks
-- **query-string 7.1.1** - Parse and stringify URL query strings
-- **class-variance-authority** - Type-safe CSS class composition
-- **clsx** - Conditional CSS class constructor
+| Technology | Purpose | Version |
+|---|---|---|
+| **Tailwind CSS** | Utility-first CSS framework for responsive, modern design | 3.4.16 |
+| **shadcn/ui** | High-quality, pre-built React component library | Latest |
+| **Radix UI** | Unstyled, accessible component primitives for building UIs | Latest |
+| **PostCSS & Autoprefixer** | CSS processing and cross-browser vendor prefixing | 8.4.49 |
+| **Lucide React** | Icon library with 400+ customizable SVG icons | 0.468.0 |
 
-### Development Tools
-- **ESLint 8.56.0** - JavaScript linting and code quality
-- **ESLint Next.js Config** - Next.js-specific ESLint rules
+### React Hooks & State Management
+- **React Hooks** - `useState`, `useEffect` for component state and lifecycle management
+- **Context API** (as needed) - Global state management
+- **Browser localStorage** - Client-side data persistence for user sessions
+
+### Animation Libraries
+
+| Library | Purpose | Version |
+|---|---|---|
+| **React Flip Move** | Smooth, physics-based animations for list item transitions | 3.0.5 |
+| **Tailwind Animate** | CSS animation utilities for fade, slide, and spin effects | 1.0.7 |
+| **react-mt-svg-lines** | SVG line drawing and animation utilities | 0.9.1 |
+
+### Utility Libraries
+- **Lodash** - JavaScript utility library for common programming tasks
+- **clsx** - Conditional CSS class composition
+- **class-variance-authority** - Type-safe CSS class variants
+- **query-string** - URL parameter parsing and stringification
+
+### Development & Quality Tools
+- **ESLint** - JavaScript linting and code quality checking
+- **ESLint Next.js Config** - Next.js-specific linting rules
 
 ### Deployment
-- **gh-pages** - Deploy static content to GitHub Pages
+- **GitHub Pages (gh-pages)** - Static site deployment
+- **Vercel** - Recommended deployment platform for Next.js applications
 
 ## 📁 Project Structure
 
 ```
 AlgorithmVisualizer/
 ├── src/
-│   ├── app/
-│   │   ├── layout.js                 # Root layout component
-│   │   ├── page.js                   # Home page
-│   │   ├── globals.css               # Global styles
-│   │   ├── 15-puzzle/                # 15-puzzle game segment
-│   │   ├── binary-search/            # Binary search visualizer
-│   │   ├── convex-hull/              # Convex hull algorithm
-│   │   ├── n-queen/                  # N-Queens problem
-│   │   ├── pathfinder/               # Pathfinding algorithms (DFS, BFS, Dijkstra, A*)
-│   │   ├── prime-numbers/            # Prime number algorithms
-│   │   ├── recursion-tree/           # Recursion visualization
-│   │   ├── sorting/                  # Sorting algorithms
-│   │   ├── components/               # Shared app components
-│   │   └── fonts/                    # Custom fonts
+│   ├── app/                          # Next.js App Router - All application pages
+│   │   ├── layout.js                 # Root layout wrapper component
+│   │   ├── page.js                   # Home page with algorithm cards
+│   │   ├── globals.css               # Global styles and CSS variables
+│   │   ├── fonts/                    # Custom fonts (Geist)
+│   │   │
+│   │   └── Algorithm Segments/ (Each has its own route)
+│   │       ├── 15-puzzle/
+│   │       │   ├── page.jsx          # 15-puzzle game and solver
+│   │       │   └── style.css
+│   │       ├── binary-search/
+│   │       │   ├── page.jsx          # Binary search visualizer
+│   │       │   ├── entryPoint.jsx    # Entry component
+│   │       │   ├── guess.jsx         # Game guess component
+│   │       │   ├── result.jsx        # Result display
+│   │       │   ├── search.jsx        # Search logic
+│   │       │   ├── search-visualization.jsx
+│   │       │   └── custom-dual-slider.jsx
+│   │       ├── convex-hull/
+│   │       │   ├── page.jsx
+│   │       │   ├── canvas.jsx        # Canvas visualization
+│   │       │   ├── menu.jsx          # Algorithm menu
+│   │       │   └── timer.jsx
+│   │       ├── n-queen/
+│   │       │   ├── page.jsx
+│   │       │   ├── cell.jsx          # Individual cell component
+│   │       │   ├── cells.jsx         # Grid of cells
+│   │       │   ├── menu.jsx
+│   │       │   └── style.css
+│   │       ├── pathfinder/
+│   │       │   ├── page.jsx          # Pathfinding visualizer
+│   │       │   ├── grid.jsx          # Interactive grid
+│   │       │   ├── node.jsx          # Grid node component
+│   │       │   ├── menu.jsx          # Algorithm selection
+│   │       │   ├── grid.css
+│   │       │   └── node.css
+│   │       ├── prime-numbers/
+│   │       │   ├── page.jsx
+│   │       │   ├── cells.jsx         # Prime grid
+│   │       │   ├── cell.jsx
+│   │       │   ├── spiral.jsx        # Archimedes spiral
+│   │       │   ├── menu.jsx
+│   │       │   ├── cell.css
+│   │       │   └── cells.css
+│   │       ├── recursion-tree/
+│   │       │   ├── page.jsx          # Recursion tree visualizer
+│   │       │   ├── canvasSVG.jsx     # SVG rendering
+│   │       │   ├── Tree.js           # Tree data structure
+│   │       │   ├── bst.js            # Binary search tree
+│   │       │   ├── fib.jsx           # Fibonacci recursion
+│   │       │   ├── vertex.jsx        # Tree vertex component
+│   │       │   ├── edge.jsx          # Tree edge component
+│   │       │   ├── details.jsx       # Algorithm details
+│   │       │   └── menu.jsx
+│   │       └── sorting/
+│   │           ├── page.jsx          # Sorting algorithms visualizer
+│   │           ├── rects.jsx         # Array visualization bars
+│   │           ├── rect.jsx          # Individual bar component
+│   │           ├── code-trace.jsx    # Code execution trace
+│   │           ├── menu.jsx          # Algorithm selection
+│   │           └── style.css
+│   │
 │   ├── components/
-│   │   ├── custom-input.jsx          # Reusable input component
-│   │   ├── custom-select.jsx         # Reusable select component
-│   │   ├── custom-slider.jsx         # Reusable slider component
-│   │   ├── custom-toggle.jsx         # Reusable toggle component
-│   │   ├── navbar.jsx                # Navigation bar
-│   │   └── ui/                       # shadcn/ui components
+│   │   ├── navbar.jsx                # Top navigation bar
+│   │   ├── footer.jsx                # Footer component
+│   │   ├── hero.jsx                  # Hero section
+│   │   ├── login-modal.jsx           # User login dialog
+│   │   ├── streak-badge.jsx          # User streak display
+│   │   ├── algorithm-cards.jsx       # Algorithm segment cards
+│   │   │
+│   │   ├── Custom Components/        # Reusable input components
+│   │   ├── custom-input.jsx          # Text input wrapper
+│   │   ├── custom-select.jsx         # Dropdown select wrapper
+│   │   ├── custom-slider.jsx         # Range slider wrapper
+│   │   ├── custom-toggle.jsx         # Toggle/switch wrapper
+│   │   │
+│   │   └── ui/                       # shadcn/ui component library
+│   │       ├── button.jsx
+│   │       ├── card.jsx
+│   │       ├── input.jsx
+│   │       ├── select.jsx
+│   │       ├── slider.jsx
+│   │       └── switch.jsx
+│   │
 │   └── lib/
-│       ├── utils.js                  # Utility functions
+│       ├── utils.js                  # Common utility functions
+│       │
 │       ├── algorithms/               # Core algorithm implementations
-│       └── helpers/                  # Helper functions
-├── public/
-│   ├── images/                       # Static images and assets
-│   ├── manifest.json                 # PWA manifest
-│   ├── robots.txt                    # SEO robots file
-│   └── _redirects                    # Redirect rules
-├── Assets/                           # Project assets (banner, etc.)
-├── build/                            # Build output (generated)
-├── package.json                      # Project dependencies & scripts
+│       │   ├── 15puzzle.js           # 15-puzzle solver
+│       │   ├── Astar.js              # A* pathfinding
+│       │   ├── bfs.jsx               # Breadth-first search
+│       │   ├── dijkstra.js           # Dijkstra's algorithm
+│       │   ├── grahamScan.js         # Convex hull
+│       │   ├── heapSort.js           # Heap sort
+│       │   ├── mergeSort.js          # Merge sort
+│       │   ├── prime.js              # Prime number algorithms
+│       │   ├── quickSort.js          # Quick sort (iterative)
+│       │   ├── quickSortRecursive.js # Quick sort (recursive)
+│       │   ├── randomMaze.js         # Random maze generation
+│       │   ├── recursiveMaze.js      # Recursive maze generation
+│       │   ├── sortingAlgorithms.js  # Bubble, selection, insertion sorts
+│       │   └── turing.js             # Turing machine logic
+│       │
+│       └── helpers/
+│           └── array_helpers.js      # Array utility functions
+│
+├── public/                           # Static assets
+│   ├── images/                       # Images and graphics
+│   ├── manifest.json                 # PWA manifest file
+│   ├── robots.txt                    # SEO robots configuration
+│   └── _redirects                    # URL redirect rules
+│
+├── Assets/                           # Project asset files (logos, banners)
+├── build/                            # Production build output (generated)
+├── .dist/                            # Distribution directory (generated)
+│
+├── Configuration Files
+├── package.json                      # Dependencies and npm scripts
 ├── next.config.mjs                   # Next.js configuration
-├── tailwind.config.js                # TailwindCSS configuration
+├── tailwind.config.js                # Tailwind CSS configuration
 ├── postcss.config.mjs                # PostCSS configuration
-├── jsconfig.json                     # JavaScript configuration
-├── components.json                   # Component library config
-└── README.md                         # This file
+├── jsconfig.json                     # JavaScript path aliases
+├── components.json                   # shadcn/ui component config
+├── eslintrc.json                     # ESLint code quality rules
+│
+└── README.md                         # This documentation file
 ```
 
-### Key Directories Explained
+### Directory Hierarchy Explained
 
-- **src/app/** - Next.js App Router pages; each algorithm segment has its own directory with dedicated routes
-- **src/components/** - Reusable UI components used across the application (inputs, selectors, toggles, navbar, etc.)
-- **src/lib/algorithms/** - Core algorithm implementations and computational logic
-- **src/lib/helpers/** - Utility helper functions used throughout the application
-- **public/** - Static assets served directly by the web server (images, manifest, robots.txt)
-- **build/** - Generated production build output (created after running `npm run build`)
+| Directory | Purpose | Key Files |
+|---|---|---|
+| **src/app/** | Next.js App Router - contains all pages and routes | `page.js` (route), `layout.js` (wrapper) |
+| **src/app/[segment]/** | Individual algorithm visualization pages | Each segment has `page.jsx`, `menu.jsx`, visualization files |
+| **src/components/** | Reusable React components used across the app | `navbar.jsx`, `footer.jsx`, `ui/*` (shadcn components) |
+| **src/lib/algorithms/** | Core algorithm implementations | Pure JavaScript algorithm logic |
+| **src/lib/helpers/** | Utility functions for common operations | Helper methods for arrays, calculations |
+| **public/** | Static assets served directly by Next.js | Images, manifest, robots.txt |
+| **build/** | Generated production build (created after `npm run build`) | Optimized output for deployment |
+
+### Architecture Pattern
+
+- **Route-based Organization**: Each algorithm segment is a separate route with its own directory
+- **Component Composition**: Reusable UI components in `src/components/`
+- **Algorithm Isolation**: Core algorithm logic in `src/lib/algorithms/`
+- **Styling**: Global styles in `globals.css`, component-scoped CSS modules, and Tailwind utilities
 
 ## 🎯 Key Features
 
