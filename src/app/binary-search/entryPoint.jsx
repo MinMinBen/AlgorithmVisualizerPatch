@@ -10,20 +10,24 @@ class EntryPoint extends Component {
     render() {
         return (
             <div className='flex flex-col items-center space-y-4'>
-                <CustomInput
-                    title="Upper Number"
-                    defaultValue={100}
-                    type={"number"}
-                    onChange={this.setData}
-                    placeholder="Enter value..."
-                />
+                <div className='bg-white rounded-lg p-6 shadow-md'>
+                    <CustomInput
+                        title="Upper Number"
+                        defaultValue={100}
+                        type={"number"}
+                        onChange={this.setData}
+                        placeholder="Enter value..."
+                    />
+                </div>
                  <br /><br />
-                <h1 className='text-3xl'>
+                <h1 className='text-3xl bg-white rounded-lg p-6 shadow-md text-black'>
                     Guess a number between 0 and {this.props.upper}
                 </h1>
                 <br />
                 <Button
                     onClick={this.props.startGame}
+                    variant="outline"
+                    className='text-black font-bold'
                 >
                     Start the game
                 </Button>

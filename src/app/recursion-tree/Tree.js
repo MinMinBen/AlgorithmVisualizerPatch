@@ -85,8 +85,7 @@ export function buchheim(tree) {
 function third_walk(tree, n) {
     tree.x += n;
     //for (let c in tree.children)
-    for(let i=0;i<tree.children;i++)
-    {
+    for(let i=0;i<tree.children.length;i++) {
         let c = tree.children[i];
         third_walk(c, n);
     }
@@ -114,7 +113,7 @@ function firstwalk(v, distance = 1) {
         let midpoint = (v.children[0].x + v.children[v.children.length-1].x) / 2;
 
         let ell = v.children[0];
-        let arr = v.children[-1];
+        let arr = v.children[v.children.length-1];
         let w = v.lbrother();
         if (w) {
             v.x = w.x + distance;
@@ -198,12 +197,12 @@ function execute_shifts(v) {
 
 function ancestor(vil, v, default_ancestor) {
 
-    if (vil.ancestor in v.parent.children){
-
+    if (!v.parent) return default_ancestor;
+    if (v.parent.children && v.parent.children.includes(vil.ancestor)){
         return vil.ancestor;
-    }
-    else
+    } else {
         return default_ancestor;
+    }
 }
 
 function second_walk(v, m = 0, depth = 0, min = undefined) {

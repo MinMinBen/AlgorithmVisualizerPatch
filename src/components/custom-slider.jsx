@@ -3,7 +3,10 @@ import { Slider } from "@/components/ui/slider"
 
 
 export function CustomSlider({ title, onChange, min, max, step, defaultValue }) {
-    const [value, setValue] = React.useState(defaultValue)
+  const [value, setValue] = React.useState(defaultValue)
+  React.useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
     const onChangeCover = (value) => {
         setValue(value)
         onChange(value)

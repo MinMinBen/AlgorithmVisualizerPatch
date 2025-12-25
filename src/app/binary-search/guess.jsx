@@ -23,16 +23,18 @@ class Guess extends Component {
                     </div>
                 {/* </div> */}
 
-                <h1 className="text-3xl">
+                <h1 className="text-3xl bg-white rounded-lg p-6 shadow-md text-black">
                     Is you number greater than {this.getMid()}?
                 </h1> <br />
                 <Button
                     onClick={this.props.yesButton}
-                    className="mx-2"
+                    variant="outline"
+                    className="mx-2 text-black font-bold"
                 >Yes</Button>
                 <Button
                     onClick={this.props.noButton}
-                    className="mx-2"
+                    variant="outline"
+                    className="mx-2 text-black font-bold"
                 >No</Button> <br />
             </div>
         );

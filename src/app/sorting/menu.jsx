@@ -3,6 +3,7 @@ import { CustomSlider } from '@/components/custom-slider';
 import { CustomToggle } from '@/components/custom-toggle';
 import { Button } from '@/components/ui/button';
 import { Component } from 'react';
+import { PresetSelector } from '@/components/preset-selector';
 class Menu extends Component {
     isClickable = () => {
         if (this.props.disable) {
@@ -14,12 +15,12 @@ class Menu extends Component {
     render() {
         return (
             // <div className="bg-gray-100 p-4 flex flex-wrap items-center gap-4">
-            <div className="w-64 bg-gray-100 p-4 space-y-6 menu-panel-light">
+            <div className="w-64 bg-white h-full p-4 space-y-6 menu-panel-light">
                 <h2 className="text-lg font-semibold">Settings</h2>
                 
                 <CustomSlider
                     title="Numbers"
-                    defaultValue={20}
+                    defaultValue={this.props.countValue ?? 20}
                     min={10}
                     max={100}
                     step={10}
@@ -27,7 +28,7 @@ class Menu extends Component {
                     disable={this.props.disable}
                 />
                 <CustomSlider
-                    defaultValue={50}
+                    defaultValue={this.props.speedValue ?? 50}
                     title="Speed"
                     onChange={this.props.onSpeedChange}
                     min={10}
@@ -71,6 +72,10 @@ class Menu extends Component {
                 >
                     Visualize
                 </Button>
+
+                <div>
+                    <PresetSelector algorithmName="sorting" onPresetSelect={this.props.onPresetSelect} />
+                </div>
 
             </div>
         );

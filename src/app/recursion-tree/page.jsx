@@ -36,6 +36,18 @@ class Graph extends Component {
     setR = (val) => {
         this.setState({ r: val });
     }
+
+    handlePresetSelect = (preset) => {
+        if (!preset) return;
+        // Reset before applying a new preset
+        this.handleReset();
+        if (typeof preset.n !== 'undefined') this.setState({ n: preset.n });
+        if (typeof preset.r !== 'undefined') this.setState({ r: preset.r });
+        if (typeof preset.algo !== 'undefined') this.setState({ algo: preset.algo });
+    }
+    handleReset = () => {
+        this.setState({ vertices: [], edges: [], current: -1, n: 0, r: 2, algo: 0 });
+    }
     addNumber = () => {
 
         let tree = getTree(this.state.n, this.state.algo, this.state.r);
@@ -94,12 +106,16 @@ class Graph extends Component {
                 <Navbar title="Recursion Tree" />
                 <div className="flex flex-1 overflow-hidden algo-content-panel">
 
-                    <Menu
-                        setN={this.setN}
-                        setR={this.setR}
-                        setAlgo={this.setAlgo}
-                        onStart={this.addNumber}
-                    />
+                    <div className="flex flex-col">
+                        <Menu
+                            setN={this.setN}
+                            setR={this.setR}
+                            setAlgo={this.setAlgo}
+                            onStart={this.addNumber}
+                            onReset={this.handleReset}
+                            onPresetSelect={this.handlePresetSelect}
+                        />
+                    </div>
 
                     <div className="flex flex-1 flex-col items-center justify-center overflow-auto">
                         <div className="w-full h-full ">

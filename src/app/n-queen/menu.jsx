@@ -1,16 +1,17 @@
 import { CustomSlider } from '@/components/custom-slider';
 import { Button } from '@/components/ui/button';
 import React, { Component } from 'react';
+import { PresetSelector } from '@/components/preset-selector';
 
 class Menu extends Component {
     render() {
         return (
-            <div className="w-64 bg-gray-100 p-4 space-y-6">
+            <div className="w-64 bg-white h-full p-4 space-y-6">
                 <h2 className="text-lg font-semibold">Settings</h2>
 
                 <CustomSlider
                     title="Grid size"
-                    defaultValue={4}
+                    defaultValue={this.props.numberValue ?? 4}
                     min={1}
                     max={8}
                     step={1}
@@ -19,7 +20,7 @@ class Menu extends Component {
                 />
                 <CustomSlider
                     title="Speed"
-                    defaultValue={50}
+                    defaultValue={this.props.speedValue ?? 50}
                     min={1}
                     max={100}
                     step={1}
@@ -41,6 +42,10 @@ class Menu extends Component {
                 >
                     Visualize
                 </Button>
+
+                <div>
+                    <PresetSelector algorithmName="n-queen" onPresetSelect={this.props.onPresetSelect} />
+                </div>
 
             </div>
         );

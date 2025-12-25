@@ -16,6 +16,7 @@ class Sort extends Component {
         rects2: [],
         doubles: false,
         speed: 50,
+        sliderValue: 50,
         isRunning: false,
         isRunning1: false,
         isRunning2: false,
@@ -41,17 +42,22 @@ class Sort extends Component {
                 <Navbar title="Sorting Visualizer" />
 
                 <div className="flex flex-1 overflow-hidden algo-content-panel">
-                    <Menu
-                        disable={this.state.isRunning}
-                        onDoubleChange={this.handleDouble}
-                        onViusalize={this.handleSort}
-                        onRandomize={this.handleRandomize}
-                        onRefresh={this.handleRefresh}
-                        onCountChange={this.handleCountChange}
-                        onAlgoChanged1={this.handleAlgoChanged1}
-                        onAlgoChanged2={this.handleAlgoChanged2}
-                        onSpeedChange={this.handleSpeedChanged}
-                    />
+                    <div className="flex flex-col">
+                        <Menu
+                            disable={this.state.isRunning}
+                            onDoubleChange={this.handleDouble}
+                            onViusalize={this.handleSort}
+                            onRandomize={this.handleRandomize}
+                            onRefresh={this.handleRefresh}
+                            onCountChange={this.handleCountChange}
+                            onAlgoChanged1={this.handleAlgoChanged1}
+                            onAlgoChanged2={this.handleAlgoChanged2}
+                            onSpeedChange={this.handleSpeedChanged}
+                            onPresetSelect={this.handlePresetSelect}
+                            countValue={this.state.count}
+                            speedValue={this.state.sliderValue}
+                        />
+                    </div>
                     <div className="flex flex-1 flex-col items-center justify-center overflow-auto relative">
                         <Rects
                             speed={this.state.speed}
@@ -107,7 +113,18 @@ class Sort extends Component {
     }
     handleSpeedChanged = (val) => {
         const speed = (760 - val * 7.5);
-        this.setState({ speed });
+        this.setState({ speed, sliderValue: val });
+    }
+
+    handlePresetSelect = (preset) => {
+        if (!preset) return;
+        if (preset.arraySize) {
+            this.setState({ count: preset.arraySize }, () => this.handleRandomize());
+        }
+        if (typeof preset.speedSlider !== 'undefined') {
+            // map speedSlider (0-100) to internal slider value expected by handleSpeedChanged
+            this.handleSpeedChanged(preset.speedSlider);
+        }
     }
     getAlgorithmCode = () => {
         const algorithms = {

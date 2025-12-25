@@ -10,6 +10,7 @@ class Queen extends Component {
         board: [],
         number: 4,
         speed: 490,
+        speedSlider: 50,
         isRunning: false
     }
 
@@ -25,17 +26,21 @@ class Queen extends Component {
     render() {
         return (
             <div className="flex flex-col h-screen algo-page-wrapper">
-                <Navbar title="8 Queen" />
+                <Navbar title="N Queen" />
                 <div className="flex flex-1 overflow-hidden algo-content-panel">
-
-                    <Menu
-                        onSpeedChange={this.handleSpeedChange}
-                        onCountChange={this.handleQueenChange}
-                        onViusalize={this.startAlgo}
-                        disable={this.state.isRunning}
-                        onClear={this.handleClear}
-                        onStop={this.handleStop}
-                    />
+                        <div className="flex flex-col">
+                            <Menu
+                                onSpeedChange={this.handleSpeedChange}
+                                onCountChange={this.handleQueenChange}
+                                onViusalize={this.startAlgo}
+                                    disable={this.state.isRunning}
+                                    onClear={this.handleClear}
+                                    onStop={this.handleStop}
+                                    onPresetSelect={this.handlePresetSelect}
+                                    numberValue={this.state.number}
+                                    speedValue={this.state.speedSlider}
+                            />
+                        </div>
                     <div className="flex flex-1 flex-col items-center justify-center overflow-auto">
                         <Cells
                             board={this.state.board}
@@ -52,7 +57,7 @@ class Queen extends Component {
 
     handleSpeedChange = (val) => {
         const speed = (100 - val) * 10;
-        this.setState({ speed });
+        this.setState({ speed, speedSlider: val });
     }
     handleQueenChange = (number) => {
         const board = getBoard(number);
@@ -61,6 +66,15 @@ class Queen extends Component {
     handleClear = () => {
         const board = getBoard(this.state.number);
         this.setState({ board });
+    }
+    handlePresetSelect = (preset) => {
+        if (!preset) return;
+        if (preset.number) {
+            this.handleQueenChange(preset.number);
+        }
+        if (typeof preset.speedSlider !== 'undefined') {
+            this.handleSpeedChange(preset.speedSlider);
+        }
     }
     handleTurnOff = () => {
         const newBoard = turnOffAttack(this.state.board, this.state.number);

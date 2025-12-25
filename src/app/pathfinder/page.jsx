@@ -53,7 +53,8 @@ class Pathfinder extends Component {
                 <Navbar title="Pathfinder" />
 
                 <div className="flex flex-1 overflow-hidden algo-content-panel">
-                    <Menu
+                    <div className="flex flex-col">
+                        <Menu
                         onAlgoChanged={this.handleAlgoChanged}
                         onVisualize={this.handleClick}
                         algorithms={this.state.algorithms}
@@ -62,7 +63,9 @@ class Pathfinder extends Component {
                         onCreateMaze={this.handleCreateMaze}
                         onClearBoard={this.handleClearBoard}
                         onClearPath={this.handleClearPath}
+                        onPresetSelect={this.handlePresetSelect}
                     />
+                    </div>
                     <span style={{ margin: 2 }} />
                     <div className="flex flex-1 flex-col items-center justify-center overflow-auto">
                         <div className="w-full h-full flex items-center justify-center" ref={this.gridRef}>
@@ -134,11 +137,37 @@ class Pathfinder extends Component {
     }
     handleClearBoard = () => {
         const { grid, row, col } = this.state;
-        this.setState({ grid: clearBoard(grid, row, col) });
+        const newGrid = clearBoard(grid, row, col);
+        // Reset DOM classes
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < col; j++) {
+                const el = document.getElementById(`node-${i}-${j}`);
+                if (el) el.className = 'node';
+            }
+        }
+        this.setState({ grid: newGrid });
+    }
+    handlePresetSelect = (preset) => {
+        if (!preset) return;
+        const rows = preset.rows || this.state.row;
+        const cols = preset.cols || this.state.col;
+        const grid = getInitialGrid(rows, cols);
+        const startNode = { row: 4, col: 4 };
+        const endNode = { row: Math.max(rows - 5, 1), col: Math.max(cols - 5, 1) };
+        grid[startNode.row][startNode.col].isStartNode = true;
+        grid[endNode.row][endNode.col].isEndNode = true;
+        this.setState({ grid, row: rows, col: cols, startNode, endNode });
     }
     handleClearPath = () => {
         const { grid, row, col } = this.state;
-        this.setState({ grid: clearPath(grid, row, col) });
+        const newGrid = clearPath(grid, row, col);
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < col; j++) {
+                const el = document.getElementById(`node-${i}-${j}`);
+                if (el) el.className = 'node';
+            }
+        }
+        this.setState({ grid: newGrid });
     }
     handleClick = () => {
         /*  for(let i = 0;i<20;i++){

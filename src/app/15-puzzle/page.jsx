@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import '@/lib/helpers/array_helpers';
 import { times } from 'lodash';
 import { Component } from 'react';
-import FlipMove from 'react-flip-move';
+// Removed FlipMove usage to avoid UNSAFE lifecycle warnings in StrictMode
 import './style.css';
 
 
@@ -40,10 +40,7 @@ class Puzzle extends Component {
                     style={{ textAlign: "Center" }}>
                     <div style={{ textAlign: "center", height: "440px", width: "440px", margin: 'auto' }}
                         className={"m-5"}>
-                        <FlipMove
-                            duration={FLIP_DURATION}
-                            easing="cubic-bezier(.12,.36,.14,1.2)"
-                        >
+                        <div>
                             {this.state.squares.map((stt) =>
                                 <div key={stt.value}
                                     className={stt.value === 0 ? "square " : stt.value % 2 === 0 ? 'square shadow correct pt-1' : 'square shadow painted pt-1'}
@@ -52,7 +49,7 @@ class Puzzle extends Component {
                                 </div>
                             )}
                             <br />
-                        </FlipMove>
+                        </div>
                         <Button
                             onClick={this.balsal}
                         >

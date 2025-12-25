@@ -15,6 +15,7 @@ class ConvexHull extends Component {
             height: 100,
             isRunning: false,
             speed: 100,
+            sliderValue: 10,
             number: 50
         }
         this.containerRef = createRef();
@@ -31,12 +32,17 @@ class ConvexHull extends Component {
             <div className="flex flex-col h-screen algo-page-wrapper">
                 <Navbar title="Convex Hull" />
                 <div className="flex flex-1 overflow-hidden algo-content-panel">
-                    <Menu
-                        onRefresh={this.handleRefreshDots}
-                        onVisualize={this.handleVisualize}
-                        onChangeSpeed={this.changeSpeed}
-                        onChangeValues={this.handleValueIncease}
-                    />
+                    <div className="flex flex-col">
+                        <Menu
+                            onRefresh={this.handleRefreshDots}
+                            onVisualize={this.handleVisualize}
+                            onChangeSpeed={this.changeSpeed}
+                            onChangeValues={this.handleValueIncease}
+                            onPresetSelect={this.handlePresetSelect}
+                            numberValue={this.state.number}
+                            speedValue={this.state.sliderValue}
+                        />
+                    </div>
                     <div className="flex flex-1 flex-col items-center justify-center overflow-auto">
                         <div className="w-full h-full flex items-center justify-center" ref={this.containerRef}>
                             <Canvas
@@ -59,7 +65,17 @@ class ConvexHull extends Component {
     }
     changeSpeed = (speed) => {
         //console.log(typeof speed);
-        this.setState({ speed: 600 - speed * 10 });
+        this.setState({ speed: 600 - speed * 10, sliderValue: speed });
+    }
+
+    handlePresetSelect = (preset) => {
+        if (!preset) return;
+        if (preset.number) {
+            this.setState({ number: preset.number }, () => this.handleRefreshDots());
+        }
+        if (typeof preset.speedSlider !== 'undefined') {
+            this.changeSpeed(preset.speedSlider);
+        }
     }
     handleAlgoStateChanged = (val) => {
         this.setState({ isAlgoLive: val });

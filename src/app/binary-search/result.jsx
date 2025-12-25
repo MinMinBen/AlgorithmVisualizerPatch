@@ -3,12 +3,15 @@ import React, { Component } from 'react';
 class Result extends Component {
     render() {
         return (
-            <div>
-                <span className='text-3xl display-3'>
-                    Your number is {this.props.res}
-                </span> <br />
+            <div className='flex flex-col items-center space-y-4'>
+                <div className='bg-white rounded-lg p-6 shadow-md text-black'>
+                    <span className='text-3xl display-3'>
+                        Your number is {this.props.res}
+                    </span>
+                </div> <br />
                 <Button
-                    className='btn btn-warning btn-lg'
+                    variant="outline"
+                    className='text-black font-bold'
                     onClick={this.props.onRestart}
                 >
                     Restart

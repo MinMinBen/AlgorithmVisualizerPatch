@@ -4,6 +4,7 @@ import EntryPoint from "./entryPoint";
 import Search from "./search";
 import Navbar from '@/components/navbar';
 import StreakBadge from '@/components/streak-badge';
+import { PresetSelector } from '@/components/preset-selector';
 
 class BinarySearch extends Component {
     state = {
@@ -20,12 +21,20 @@ class BinarySearch extends Component {
                 <br />
                 <br />
                 <center>
-                    {!this.state.isRunning &&
-                        <EntryPoint
-                            startGame={this.handleStartGame}
-                            upper={this.state.upper}
-                            setUpper={this.handleSetUpper}
-                        />}
+                    {!this.state.isRunning && (
+                        <>
+                            <PresetSelector 
+                                algorithmName="binary-search"
+                                onPresetSelect={this.handlePresetSelect}
+                                className="mb-6"
+                            />
+                            <EntryPoint
+                                startGame={this.handleStartGame}
+                                upper={this.state.upper}
+                                setUpper={this.handleSetUpper}
+                            />
+                        </>
+                    )}
                     {this.state.isRunning &&
                         <Search
                             yesButton={this.handleYes}
@@ -40,6 +49,15 @@ class BinarySearch extends Component {
             </div>
         );
     }
+    
+    handlePresetSelect = (preset) => {
+        this.setState({
+            upper: preset.upper,
+            lower: preset.lower,
+            max: preset.max
+        });
+    }
+    
     handleStartGame = () => {
         this.setState({ isRunning: true });
     }

@@ -24,7 +24,7 @@ class SearchVisualization extends Component {
 
                 {/* Number Line Visualization */}
                 <div className="mb-8 overflow-x-auto">
-                    <div className="flex gap-1 min-w-full p-4 bg-white rounded border border-gray-300">
+                    <div className="inline-flex gap-1 p-4 bg-white rounded border border-gray-300 whitespace-nowrap">
                         {numbers.map((num) => (
                             <div key={num} className="flex flex-col items-center">
                                 <div
@@ -44,7 +44,7 @@ class SearchVisualization extends Component {
                                     {num}
                                 </div>
                                 {num === mid && (
-                                    <div className="text-xs text-blue-600 font-bold mt-1">MID</div>
+                                    <div className="bg-blue-500 text-white text-xs font-bold rounded-full px-2 py-1 shadow-md whitespace-nowrap mt-2">Current Guess: {mid}</div>
                                 )}
                             </div>
                         ))}

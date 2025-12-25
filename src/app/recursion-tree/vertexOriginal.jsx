@@ -38,7 +38,7 @@ class Vertex extends Component {
                     cx={this.state.poss.x}
                     cy={this.state.poss.y}
                     r={this.props.radius}
-                    stroke="black" stroke-width="1" fill="red"
+                    stroke="black" strokeWidth={1} fill="red"
                 >
                     {/*<animate*/}
                     {/*    attributeName='r'*/}

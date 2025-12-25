@@ -1,12 +1,13 @@
 import { CustomSelect } from '@/components/custom-select';
 import { Button } from '@/components/ui/button';
 import { Component } from 'react';
+import { PresetSelector } from '@/components/preset-selector';
 
 
 class Menu extends Component {
     render() {
         return (
-            <div className="w-64 bg-gray-100 p-4 space-y-6">
+            <div className="w-64 bg-white h-full p-4 space-y-6">
                 <h2 className="text-lg font-semibold">Settings</h2>
                 <CustomSelect
                     title="Select Task"
@@ -29,7 +30,9 @@ class Menu extends Component {
                     onClick={this.props.onStart}
                     disabled={this.props.disable}
                 >Visualize</Button>
-
+                <div>
+                    <PresetSelector algorithmName="recursion-tree" onPresetSelect={this.props.onPresetSelect} />
+                </div>
             </div>
         );
     }

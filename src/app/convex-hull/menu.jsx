@@ -1,16 +1,17 @@
 import { CustomSlider } from '@/components/custom-slider';
 import { Button } from '@/components/ui/button';
 import { Component } from 'react';
+import { PresetSelector } from '@/components/preset-selector';
 
 class Menu extends Component {
     render() {
         return (
-            <div className="w-64 bg-gray-100 p-4 space-y-6">
+            <div className="w-64 bg-white h-full p-4 space-y-6">
                 <h2 className="text-lg font-semibold">Settings</h2>
                 
                 <CustomSlider
                     title="Speed"
-                    defaultValue={10}
+                    defaultValue={this.props.speedValue ?? 10}
                     min={10}
                     max={50}
                     step={1}
@@ -18,7 +19,7 @@ class Menu extends Component {
                 />
                 <CustomSlider
                     title="Total Number"
-                    defaultValue={50}
+                    defaultValue={this.props.numberValue ?? 50}
                     min={10}
                     max={200}
                     step={1}
@@ -41,6 +42,10 @@ class Menu extends Component {
                 >
                     Visualize Graham Scan
                 </Button>
+
+                <div>
+                    <PresetSelector algorithmName="convex-hull" onPresetSelect={this.props.onPresetSelect} />
+                </div>
 
             </div>
         );

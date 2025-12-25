@@ -12,6 +12,7 @@ class Seive extends Component {
         cells: [],
         isRunning: false,
         speed: 500,
+        sliderValue: 10,
         primes: [],
         maxPrime: 0
     }
@@ -30,13 +31,18 @@ class Seive extends Component {
                 <Navbar title="Sieve" />
                 <div className="flex flex-1 overflow-hidden algo-content-panel">
 
-                    <Menu
+                    <div className="flex flex-col">
+                        <Menu
                         onChangeSpeed={this.changeSpeed}
                         onChangeValues={this.handleValueIncease}
                         onVisualize={this.startAlgo}
-                        onRefresh={this.handleRefresh}
+                        onReset={this.handleReset}
                         isDisabled={this.state.isRunning}
+                        onPresetSelect={this.handlePresetSelect}
+                        numberValue={this.state.number}
+                        speedValue={this.state.sliderValue}
                     />
+                    </div>
                     <div className="flex flex-1 flex-col overflow-auto">
                         <Cells
                             num={this.state.number}
@@ -50,7 +56,7 @@ class Seive extends Component {
 
     changeSpeed = (speed) => {
         //console.log(typeof speed);
-        this.setState({ speed: 600 - speed * 10 });
+        this.setState({ speed: 600 - speed * 10, sliderValue: speed });
     }
     handleValueIncease = (value) => {
         this.setState({ number: value });
@@ -62,6 +68,22 @@ class Seive extends Component {
     }
     handleRefresh = () => {
         this.setState({ cells: getCells(this.state.number), isRunning: false });
+    }
+
+    handleReset = () => {
+        // Reset to defaults
+        const defaultNumber = 100;
+        this.setState({ number: defaultNumber, cells: getCells(defaultNumber), isRunning: false, speed: 500 });
+    }
+
+    handlePresetSelect = (preset) => {
+        if (!preset) return;
+        if (preset.limit) {
+            this.setState({ number: preset.limit, cells: getCells(preset.limit), isRunning: false });
+        }
+        if (typeof preset.speedSlider !== 'undefined') {
+            this.changeSpeed(preset.speedSlider);
+        }
     }
 
     startAlgo = () => {

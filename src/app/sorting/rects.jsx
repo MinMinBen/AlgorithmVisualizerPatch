@@ -1,5 +1,5 @@
 import React from 'react';
-import FlipMove from 'react-flip-move';
+// Removed FlipMove to avoid UNSAFE lifecycle warnings in StrictMode
 import Rect from "./rect";
 
 const Rects = ({ rects, speed }) => {
@@ -10,22 +10,18 @@ const Rects = ({ rects, speed }) => {
     }
     return (
         <div>
-            <FlipMove
-                className="flex justify-center items-end"
-                duration={speed}
-            // easing="cubic-bezier(.12,.36,.14,1.2)"
-            >
-                {rects.map((rect, rectidx) => {
-                    return (
-                        <div key={rectidx}>
-                            <Rect
-                            marg={margin}
-                            rect={rect}
-                        />
-                        </div>
-                    );
-                })}
-            </FlipMove>
+                <div className="flex justify-center items-end">
+                    {rects.map((rect, rectidx) => {
+                        return (
+                            <div key={rectidx}>
+                                <Rect
+                                    marg={margin}
+                                    rect={rect}
+                                />
+                            </div>
+                        );
+                    })}
+                </div>
         </div>
     );
 
