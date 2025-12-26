@@ -1,8 +1,8 @@
-# Algorithm Visualizer
+ Algorithm Visualizer
 
 A comprehensive interactive visualization platform for learning algorithms through step-by-step visual demonstrations. Built with modern web technologies to make algorithm learning engaging and intuitive.
 
-# Live At https://algorithm-visualizer-sepia.vercel.app/
+# Live At https://algorithm-visualizer-patch.vercel.app
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -12,14 +12,10 @@ A comprehensive interactive visualization platform for learning algorithms throu
 ### Installation & Running Locally
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/Fritzcoding/AlgorithmVisualizer.git
-cd AlgorithmVisualizer
-
-# 2. Install dependencies
+# 1. Install dependencies
 npm install
 
-# 3. Start the development server
+# 2. Start the development server
 npm run dev
 ```
 
