@@ -17,23 +17,22 @@ class BinarySearch extends Component {
         return (
             <div className="algo-page-wrapper min-h-screen">
                 <Navbar title={"Binary Search"} />
-                <br />
-                <br />
-                <br />
-                <center>
+                <div className="flex items-center justify-center min-h-[68vh] px-4">
                     {!this.state.isRunning && (
-                        <>
-                            <PresetSelector 
-                                algorithmName="binary-search"
-                                onPresetSelect={this.handlePresetSelect}
-                                className="mb-6"
-                            />
-                            <EntryPoint
-                                startGame={this.handleStartGame}
-                                upper={this.state.upper}
-                                setUpper={this.handleSetUpper}
-                            />
-                        </>
+                        <div className="max-w-4xl w-full mx-auto text-xl">
+                            <div className="bg-white rounded-lg p-16 shadow-md space-y-6">
+                                <PresetSelector 
+                                    algorithmName="binary-search"
+                                    onPresetSelect={this.handlePresetSelect}
+                                    className="mb-2"
+                                />
+                                <EntryPoint
+                                    startGame={this.handleStartGame}
+                                    upper={this.state.upper}
+                                    setUpper={this.handleSetUpper}
+                                />
+                            </div>
+                        </div>
                     )}
                     {this.state.isRunning &&
                         <Search
@@ -45,7 +44,7 @@ class BinarySearch extends Component {
                             onRestart={this.handleRestart}
                         />
                     }
-                </center>
+                </div>
             </div>
         );
     }
@@ -69,6 +68,7 @@ class BinarySearch extends Component {
         this.setState({ lower: mid + 1 });
     }
     handleNo = () => {
+        // set upper to mid for correct inclusive narrowing
         const mid = Math.floor((this.state.upper + this.state.lower) / 2);
         this.setState({ upper: mid });
     }

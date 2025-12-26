@@ -3,12 +3,10 @@ import './style.css';
 const Rect = ({ marg, rect }) => {
 
     const checkColor = () => {
-        if (rect.isSorted) {
-            return "green";
-        } else if (rect.isSorting) {
-            return "red";
+        if (rect.isSorted || rect.isSorting) {
+            return "#00f7ef"; // glowing cyan when sorting/arranged
         } else {
-            return "white"
+            return "white"; // default before visualization
         }
     }
 
@@ -18,6 +16,7 @@ const Rect = ({ marg, rect }) => {
             style={{
                 height: rect.width,
                 background: checkColor(),
+                boxShadow: (rect.isSorted || rect.isSorting) ? '0 0 14px rgba(0,247,239,0.32)' : 'none',
                 margin: marg,
                 // float:'left',
                 verticalAlign: 'middle'

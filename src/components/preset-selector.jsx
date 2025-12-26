@@ -28,12 +28,12 @@ export function PresetSelector({ algorithmName, onPresetSelect, className = "" }
         <label className="text-sm font-medium text-gray-700 block text-center mb-2">
           Quick Presets:
         </label>
-        <div className="flex gap-2 flex-wrap justify-center">
+        <div className="flex gap-3 flex-wrap justify-center">
           {presets.map((preset) => (
             <button
               key={preset.id}
               onClick={() => onPresetSelect(preset)}
-              className="px-4 py-2 bg-black hover:opacity-90 text-white rounded-md transition-colors font-medium text-sm"
+              className="px-6 py-3 bg-black hover:opacity-90 text-white rounded-md transition-colors font-semibold text-lg"
               title={preset.description}
             >
               {preset.name}

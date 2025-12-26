@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import DualHandleSlider from './custom-dual-slider';
+import { Button } from '@/components/ui/button';
 
 class SearchVisualization extends Component {
     render() {
@@ -85,6 +87,31 @@ class SearchVisualization extends Component {
                         <span className="font-semibold">Complexity:</span> O(log n) 
                         <span className="ml-6 font-semibold">Estimated steps:</span> {Math.ceil(Math.log2(max))}
                     </div>
+                </div>
+
+                {/* Controls moved under Statistics as requested (smaller card) */}
+                <div className="mt-4 p-4 bg-white rounded shadow-sm max-w-md mx-auto text-center">
+                    <div className="mb-3">
+                        <DualHandleSlider upper={upper} lower={lower} max={max} />
+                    </div>
+                    {upper !== lower && (
+                        <div>
+                            <div className="text-md font-semibold mb-3">Is your number greater than {mid}?</div>
+                            <div className="flex justify-center">
+                                <Button onClick={this.props.yesButton} className="bg-black text-white px-4 py-2 rounded-md font-semibold mx-2">Yes</Button>
+                                <Button onClick={this.props.onRestart} className="bg-black text-white px-4 py-2 rounded-md font-semibold mx-2">Restart</Button>
+                                <Button onClick={this.props.noButton} className="bg-black text-white px-4 py-2 rounded-md font-semibold mx-2">No</Button>
+                            </div>
+                        </div>
+                    )}
+                    {upper === lower && (
+                        <div className="mt-4">
+                            <div className="text-md font-semibold mb-4">Your number is {upper}</div>
+                            <div className="flex justify-center">
+                                <Button onClick={this.props.onRestart} className="bg-black text-white px-6 py-2 rounded-md font-semibold">Restart</Button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         );

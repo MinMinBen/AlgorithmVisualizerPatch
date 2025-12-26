@@ -125,3 +125,157 @@ body {
   backdrop-filter: blur(4px);
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+/* Comet / passing-asteroid subtle animation (non-intrusive) */
+.comet-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6; /* sit above background but below main UI panels */
+}
+.comet {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #e6ffff 0%, #00f0e0 35%, rgba(0,240,224,0.9) 60%);
+  box-shadow: 0 0 16px rgba(0,240,224,0.9), 0 0 32px rgba(0,200,200,0.5);
+  opacity: 0.95;
+  /* allow keyframes to fully control transform; use per-instance scale via --scale */
+  --scale: 1;
+}
+.comet::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--tail-width, 340px) * -0.45);
+  top: 50%;
+  width: var(--tail-width, 340px);
+  height: 8px;
+  background: linear-gradient(90deg, rgba(0,247,239,0.0) 0%, rgba(0,247,239,0.12) 20%, rgba(0,247,239,0.7) 55%, rgba(0,247,239,0.12) 85%, rgba(0,247,239,0.0) 100%);
+  transform: translateY(-50%) skewX(-6deg);
+  filter: blur(14px) saturate(140%);
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+/* Directional animation assignments for comets */
+.comet.dir-rtl { animation: comet-rtl 12s linear infinite; }
+.comet.dir-ltr { animation: comet-ltr 14s linear infinite; }
+.comet.dir-diag { animation: comet-diag 16s linear infinite; }
+
+/* Default comet trajectories: keep vertical movement inside safe band (12vh - 60vh) */
+@keyframes comet-rtl {
+  0% { transform: translate3d(120vw, 48vh, 0) scale(var(--scale,0.9)) rotate(20deg); opacity: 0 }
+  6% { opacity: 0.95 }
+  100% { transform: translate3d(-40vw, 22vh, 0) scale(var(--scale,0.9)) rotate(-20deg); opacity: 0 }
+}
+@keyframes comet-ltr {
+  0% { transform: translate3d(-40vw, 36vh, 0) scale(var(--scale,0.9)) rotate(-20deg); opacity: 0 }
+  6% { opacity: 0.95 }
+  100% { transform: translate3d(120vw, 18vh, 0) scale(var(--scale,0.9)) rotate(20deg); opacity: 0 }
+}
+@keyframes comet-diag {
+  0% { transform: translate3d(-30vw, 60vh, 0) scale(var(--scale,0.8)) rotate(-10deg); opacity: 0 }
+  6% { opacity: 0.95 }
+  100% { transform: translate3d(120vw, 26vh, 0) scale(var(--scale,0.8)) rotate(10deg); opacity: 0 }
+}
+
+/* make sure it stays subtle on small screens */
+@media (max-width: 640px) {
+  .comet { display: none; }
+}
+
+/* Ensure common content panels/cards are above comet layer */
+.algo-page-wrapper,
+.algo-content-panel,
+.card,
+.bg-white,
+.menu-panel-light,
+.code-panel-dark,
+.navbar,
+.preset-selector,
+.card-body,
+.shadow-md {
+  position: relative;
+  z-index: 30; /* ensure UI sits above comet layer */
+}
+
+/* UFO (appears roughly every 30s for a short flyby) */
+/* Improved UFO visuals */
+.ufo {
+  position: absolute;
+  width: 92px;
+  height: 40px;
+  left: -5%;
+  top: 12%;
+  background: radial-gradient(circle at 50% 35%, #ffffff 0%, #dffcff 30%, #88f7e6 100%);
+  border-radius: 60% 60% 40% 40% / 60% 60% 40% 40%;
+  box-shadow: 0 0 36px rgba(0,255,220,0.75), 0 10px 28px rgba(0,0,0,0.45) inset;
+  transform: translate3d(-20vw, 0, 0) scale(1);
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.38));
+  animation: ufo-pass 20s linear infinite;
+}
+.ufo::before {
+  /* dome */
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 6%;
+  width: 46px;
+  height: 20px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,0.6));
+  border-radius: 50%;
+}
+.ufo::after {
+  /* scanning light */
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 140px;
+  height: 18px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(0,255,220,0.14), rgba(0,255,220,0.0));
+  filter: blur(10px);
+}
+@keyframes ufo-pass {
+  0% { opacity: 0; transform: translate3d(-20vw, 36vh, 0) scale(0.95); }
+  4% { opacity: 1; }
+  18% { transform: translate3d(100vw, 28vh, 0) scale(1); }
+  22% { opacity: 0; transform: translate3d(120vw, 24vh, 0) scale(1); }
+  100% { opacity: 0; transform: translate3d(120vw, 24vh, 0) scale(1); }
+}
+
+/* Asteroids: occasional rocks passing with varying sizes and directions */
+.asteroid {
+  position: absolute;
+  width: 14px;
+  height: 10px;
+  border-radius: 35% 65% 40% 60%;
+  background: linear-gradient(180deg,#7d6b53,#4f3f2b);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.45) inset;
+  opacity: 0;
+  pointer-events: none;
+  animation: asteroid-pass 16s linear infinite;
+}
+.asteroid::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+  left: 30%;
+  top: 20%;
+}
+.asteroid--one { top: 22%; left: -5%; animation-delay: 1s; }
+.asteroid--two { top: 58%; left: -10%; animation-delay: 6s; animation-duration: 18s; }
+.asteroid--three { top: 42%; left: 5%; animation-delay: 10s; animation-duration: 20s; }
+@keyframes asteroid-pass {
+  0% { opacity: 0; transform: translate3d(0,0,0) rotate(0deg); }
+  6% { opacity: 1; }
+  100% { opacity: 1; transform: translate3d(120vw, 22vh, 0) rotate(360deg); }
+}

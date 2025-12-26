@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Guess from "./guess";
 import Result from "./result";
 import SearchVisualization from "./search-visualization";
 
@@ -11,24 +10,10 @@ class Search extends Component {
                     upper={this.props.upper}
                     lower={this.props.lower}
                     max={this.props.max}
+                    yesButton={this.props.yesButton}
+                    noButton={this.props.noButton}
+                    onRestart={this.props.onRestart}
                 />
-                <div>
-                    {this.props.upper !== this.props.lower &&
-                    <Guess
-                        yesButton={this.props.yesButton}
-                        noButton={this.props.noButton}
-                        upper={this.props.upper}
-                        lower={this.props.lower}
-                        max={this.props.max}
-                    />
-                    }
-                    {this.props.upper === this.props.lower &&
-                       <Result
-                           res={this.props.upper}
-                           onRestart={this.props.onRestart}
-                       />
-                    }
-                </div>
             </div>
         );
     }

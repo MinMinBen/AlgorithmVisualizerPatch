@@ -84,8 +84,9 @@ class Canvas extends Component {
         const canvas2 = this.canvasLineRef.current;
         const ctx2 = canvas2.getContext('2d');
         ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+        // Use glowing cyan for connecting lines
         ctx2.fillStyle = '#ffffff';
-        ctx2.strokeStyle = '#ffffff';
+        ctx2.strokeStyle = '#00FFFF';
         for (let i = 0; i < lines.length; i++) {
             if (!this.props.onGoing) {
                 ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
@@ -109,8 +110,10 @@ class Canvas extends Component {
                 ctx2.closePath();
 
                 ctx2.beginPath();
-                ctx2.lineWidth = 2;
-                ctx2.strokeStyle = '#000000';
+                ctx2.lineWidth = 3;
+                ctx2.strokeStyle = '#00f7ef';
+                ctx2.shadowColor = 'rgba(0,247,239,0.9)';
+                ctx2.shadowBlur = 12;
             } else {
                 ctx2.beginPath();
                 ctx2.fillStyle = 'whitesmoke';
@@ -126,13 +129,18 @@ class Canvas extends Component {
                 ctx2.fill();
                 ctx2.closePath();
 
-                ctx2.lineWidth = 4;
-                ctx2.strokeStyle = 'whitesmoke';
+                ctx2.lineWidth = 3;
+                ctx2.strokeStyle = '#00f7ef';
+                ctx2.shadowColor = 'rgba(0,200,220,0.8)';
+                ctx2.shadowBlur = 10;
             }
 
             ctx2.moveTo(lines[i].from.xx, lines[i].from.yy);
             ctx2.lineTo(lines[i].to.xx, lines[i].to.yy);
             ctx2.stroke();
+            // reset shadow to avoid affecting other drawings
+            ctx2.shadowBlur = 0;
+            ctx2.shadowColor = 'transparent';
             ctx2.closePath();
             if (i === lines.length - 1) {
                 this.props.onTurnOff();

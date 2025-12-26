@@ -9,18 +9,17 @@ import { Input } from "@/components/ui/input"
 //   placeholder?: string
 // }
 
-export function CustomInput({ title, defaultValue = "", onChange, type = "text", placeholder }) {
+export function CustomInput({ title, defaultValue = "", onChange, type = "text", placeholder, centerLabel = false, titleSize = 'text-sm' }) {
   const [value, setInputValue] = React.useState(defaultValue)
   const onInputChange = (value) => {
     setInputValue(value)
     onChange(value)
   }
   return (
-    <div className="space-y-2">
-    {/* <div className="flex items-center space-x-2"> */}
+    <div className="space-y-2 w-full max-w-xs">
       <label
         htmlFor={title}
-        className="text-sm font-medium whitespace-nowrap"
+        className={`${titleSize} font-medium ${centerLabel ? 'block text-center w-full' : 'whitespace-nowrap'}`}
       >
         {title}
       </label>
@@ -31,7 +30,6 @@ export function CustomInput({ title, defaultValue = "", onChange, type = "text",
         onChange={(e) => onInputChange(e.target.value)}
         placeholder={placeholder}
         className="w-full"
-        // className="w-[180px]"
       />
     </div>
   )

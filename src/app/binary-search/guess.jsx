@@ -5,37 +5,32 @@ class Guess extends Component {
     render() {
         return (
             <div >
-                {/* <p>
-                    <Button className="btn btn-secondary btn-lg" type="button" data-toggle="collapse"
-                        data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Toggle Range
-                    </Button>
-                </p> */}
-                {/* <div className="collapse" id="collapseExample"> */}
-                    <div className="card card-body">
-                        <center style={{ justifyContent: "center" }}>
-                            <DualHandleSlider
-                                upper={this.props.upper}
-                                lower={this.props.lower}
-                                max={this.props.max}
-                            />
-                        </center>
+                <div className="w-full">
+                    <div className="flex justify-center mb-4">
+                        <DualHandleSlider
+                            upper={this.props.upper}
+                            lower={this.props.lower}
+                            max={this.props.max}
+                        />
                     </div>
-                {/* </div> */}
 
-                <h1 className="text-3xl bg-white rounded-lg p-6 shadow-md text-black">
-                    Is you number greater than {this.getMid()}?
-                </h1> <br />
-                <Button
-                    onClick={this.props.yesButton}
-                    variant="outline"
-                    className="mx-2 text-black font-bold"
-                >Yes</Button>
-                <Button
-                    onClick={this.props.noButton}
-                    variant="outline"
-                    className="mx-2 text-black font-bold"
-                >No</Button> <br />
+                    <h2 className="text-xl text-black text-center mb-2">
+                        Is your number greater than {this.getMid()}?
+                    </h2>
+
+                    <div className="flex justify-center mt-2">
+                        <Button
+                            onClick={this.props.yesButton}
+                            variant="outline"
+                            className="mx-2 text-black font-bold"
+                        >Yes</Button>
+                        <Button
+                            onClick={this.props.noButton}
+                            variant="outline"
+                            className="mx-2 text-black font-bold"
+                        >No</Button>
+                    </div>
+                </div>
             </div>
         );
     }
