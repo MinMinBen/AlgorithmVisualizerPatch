@@ -280,10 +280,13 @@ class Sort extends Component {
             if (steps[i].xx === steps[i].yy) {
                 prevRect[steps[i].xx] = { ...prevRect[steps[i].xx], isSorted: true, isSorting: false };
             } else if (steps[i].changed) {
-                const recti = { ...prevRect[steps[i].xx], isSorting: true };
-                const rectj = { ...prevRect[steps[i].yy], isSorting: true };
-                prevRect[steps[i].yy] = recti;
-                prevRect[steps[i].xx] = rectj;
+                // Instead of swapping array positions, swap the height values so bars animate their sizes
+                const idxA = steps[i].xx;
+                const idxB = steps[i].yy;
+                const heightA = prevRect[idxA].width;
+                const heightB = prevRect[idxB].width;
+                prevRect[idxA] = { ...prevRect[idxA], width: heightB, isSorting: true };
+                prevRect[idxB] = { ...prevRect[idxB], width: heightA, isSorting: true };
             } else {
                 prevRect[steps[i].xx] = { ...prevRect[steps[i].xx], isSorting: true };
                 prevRect[steps[i].yy] = { ...prevRect[steps[i].yy], isSorting: true };
@@ -338,10 +341,12 @@ class Sort extends Component {
             if (steps[i].xx === steps[i].yy) {
                 prevRect[steps[i].xx] = { ...prevRect[steps[i].xx], isSorted: true, isSorting: false };
             } else if (steps[i].changed) {
-                const recti = { ...prevRect[steps[i].xx], isSorting: true };
-                const rectj = { ...prevRect[steps[i].yy], isSorting: true };
-                prevRect[steps[i].yy] = recti;
-                prevRect[steps[i].xx] = rectj;
+                const idxA = steps[i].xx;
+                const idxB = steps[i].yy;
+                const heightA = prevRect[idxA].width;
+                const heightB = prevRect[idxB].width;
+                prevRect[idxA] = { ...prevRect[idxA], width: heightB, isSorting: true };
+                prevRect[idxB] = { ...prevRect[idxB], width: heightA, isSorting: true };
             } else {
                 prevRect[steps[i].xx] = { ...prevRect[steps[i].xx], isSorting: true };
                 prevRect[steps[i].yy] = { ...prevRect[steps[i].yy], isSorting: true };
@@ -373,7 +378,12 @@ class Sort extends Component {
         // More intelligent line highlighting based on algorithm state for algo2
         const steps = this.state.steps2;
         if (!steps || steps.length === 0) return [0];
-        
+        // If steps carry explicit `lineNum` information, prefer that for accurate tracing
+        const step = steps[currentStep];
+        if (step && step.lineNum !== undefined) {
+            return [step.lineNum];
+        }
+
         const algo = this.state.algo2;
         if (algo === 0) { // Bubble Sort
             if (currentStep < steps.length / 2) return [0, 1, 2]; // Outer and inner loop check, comparison

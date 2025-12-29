@@ -50,10 +50,14 @@ class BinarySearch extends Component {
     }
     
     handlePresetSelect = (preset) => {
+        if (!preset) return;
+        const up = parseInt(preset.upper, 10) || 100;
+        const low = parseInt(preset.lower, 10) || 0;
+        const mx = parseInt(preset.max, 10) || up;
         this.setState({
-            upper: preset.upper,
-            lower: preset.lower,
-            max: preset.max
+            upper: up,
+            lower: low,
+            max: mx
         });
     }
     
@@ -61,16 +65,24 @@ class BinarySearch extends Component {
         this.setState({ isRunning: true });
     }
     handleRestart = () => {
-        this.setState({ isRunning: false, upper: 100, lower: 0 });
+        // Reset to default bounds when user restarts the game
+        this.setState({ isRunning: false, upper: 100, lower: 0, max: 100 });
     }
     handleYes = () => {
-        const mid = Math.floor((this.state.upper + this.state.lower) / 2);
-        this.setState({ lower: mid + 1 });
+        this.setState((state) => {
+            // ignore if already determined
+            if (state.lower >= state.upper) return null;
+            const mid = Math.floor((state.upper + state.lower) / 2);
+            return { lower: mid + 1 };
+        });
     }
     handleNo = () => {
-        // set upper to mid for correct inclusive narrowing
-        const mid = Math.floor((this.state.upper + this.state.lower) / 2);
-        this.setState({ upper: mid });
+        this.setState((state) => {
+            // ignore if already determined
+            if (state.lower >= state.upper) return null;
+            const mid = Math.floor((state.upper + state.lower) / 2);
+            return { upper: mid };
+        });
     }
     handleSetUpper = (up) => {
         let val = parseInt(up);

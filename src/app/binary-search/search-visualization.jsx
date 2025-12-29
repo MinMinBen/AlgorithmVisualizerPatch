@@ -5,7 +5,11 @@ import { Button } from '@/components/ui/button';
 class SearchVisualization extends Component {
     render() {
         const { upper, lower, max } = this.props;
-        const mid = Math.floor((upper + lower) / 2);
+        // Standard binary-search invariant: compute mid only while lower < upper
+        const isDetermined = lower === upper;
+        const mid = lower < upper ? Math.floor((upper + lower) / 2) : null;
+        // final guess will be the current lower when the algorithm concludes
+        const finalGuess = lower;
         
         // Create array of numbers from 0 to max
         const numbers = Array.from({ length: max + 1 }, (_, i) => i);
@@ -19,7 +23,7 @@ class SearchVisualization extends Component {
                     <div className="text-sm text-gray-600 mb-2">Search Range: {lower} to {upper}</div>
                     <div className="flex items-center justify-between mb-4">
                         <span className="text-sm font-semibold text-green-600">Lower: {lower}</span>
-                        <span className="text-sm font-semibold text-blue-600">Mid: {mid}</span>
+                        <span className="text-sm font-semibold text-blue-600">Mid: {isDetermined ? '-' : mid}</span>
                         <span className="text-sm font-semibold text-red-600">Upper: {upper}</span>
                     </div>
                 </div>
@@ -33,11 +37,11 @@ class SearchVisualization extends Component {
                                     className={`
                                         w-8 h-12 flex items-center justify-center rounded font-bold text-sm
                                         transition-all duration-300
-                                        ${num === mid 
-                                            ? 'bg-blue-500 text-white scale-110' 
+                                        ${(!isDetermined && num === mid)
+                                            ? 'bg-blue-500 text-white scale-110'
                                             : num < lower || num > upper
                                             ? 'bg-gray-300 text-gray-500'
-                                            : num < mid
+                                            : (!isDetermined && num < mid)
                                             ? 'bg-green-200 text-green-800'
                                             : 'bg-red-200 text-red-800'
                                         }
@@ -45,7 +49,7 @@ class SearchVisualization extends Component {
                                 >
                                     {num}
                                 </div>
-                                {num === mid && (
+                                {!isDetermined && num === mid && (
                                     <div className="bg-blue-500 text-white text-xs font-bold rounded-full px-2 py-1 shadow-md whitespace-nowrap mt-2">Current Guess: {mid}</div>
                                 )}
                             </div>
@@ -62,7 +66,7 @@ class SearchVisualization extends Component {
                     </div>
                     <div className="bg-blue-50 p-4 rounded border border-blue-200">
                         <div className="text-xs text-gray-600 mb-1">CURRENT GUESS</div>
-                        <div className="text-2xl font-bold text-blue-600">{mid}</div>
+                        <div className="text-2xl font-bold text-blue-600">{isDetermined ? '-' : mid}</div>
                         <div className="text-xs text-gray-500">mid value</div>
                     </div>
                 </div>
@@ -73,11 +77,11 @@ class SearchVisualization extends Component {
                     <div className="space-y-1 text-gray-300">
                         <div>1. mid = floor((lower + upper) / 2)</div>
                         <div className="text-yellow-300">   → mid = floor(({lower} + {upper}) / 2) = {mid}</div>
-                        <div className="mt-2">2. If target &gt; mid:</div>
-                        <div className="text-gray-500">   lower = mid + 1</div>
-                        <div className="mt-2">3. If target &lt; mid:</div>
-                        <div className="text-gray-500">   upper = mid - 1</div>
-                        <div className="mt-2">4. Repeat until lower == upper</div>
+                            <div className="mt-2">2. If target &gt; mid:</div>
+                            <div className="text-gray-500">   lower = mid + 1</div>
+                            <div className="mt-2">3. If target &lt;= mid:</div>
+                            <div className="text-gray-500">   upper = mid</div>
+                            <div className="mt-2">4. Repeat until lower == upper</div>
                     </div>
                 </div>
 
@@ -94,7 +98,7 @@ class SearchVisualization extends Component {
                     <div className="mb-3">
                         <DualHandleSlider upper={upper} lower={lower} max={max} />
                     </div>
-                    {upper !== lower && (
+                    { (lower < upper) && (
                         <div>
                             <div className="text-md font-semibold mb-3">Is your number greater than {mid}?</div>
                             <div className="flex justify-center">
@@ -104,9 +108,9 @@ class SearchVisualization extends Component {
                             </div>
                         </div>
                     )}
-                    {upper === lower && (
+                    { isDetermined && (
                         <div className="mt-4">
-                            <div className="text-md font-semibold mb-4">Your number is {upper}</div>
+                            <div className="text-md font-semibold mb-4">Your number is {finalGuess}</div>
                             <div className="flex justify-center">
                                 <Button onClick={this.props.onRestart} className="bg-black text-white px-6 py-2 rounded-md font-semibold">Restart</Button>
                             </div>

@@ -11,6 +11,9 @@ import { Input } from "@/components/ui/input"
 
 export function CustomInput({ title, defaultValue = "", onChange, type = "text", placeholder, centerLabel = false, titleSize = 'text-sm' }) {
   const [value, setInputValue] = React.useState(defaultValue)
+  React.useEffect(() => {
+    setInputValue(defaultValue);
+  }, [defaultValue]);
   const onInputChange = (value) => {
     setInputValue(value)
     onChange(value)

@@ -28,7 +28,7 @@ npm --version
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/MinMinBen/AlgorithmVisualizerPatch
 
 # Navigate to the project directory
 cd AlgorithmVisualizer

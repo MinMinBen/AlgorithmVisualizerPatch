@@ -13,7 +13,7 @@ class EntryPoint extends Component {
                 <div className="w-full flex justify-center">
                     <CustomInput
                         title="Upper Number"
-                        defaultValue={100}
+                        defaultValue={this.props.upper}
                         type={"number"}
                         onChange={this.setData}
                         placeholder="Enter value..."

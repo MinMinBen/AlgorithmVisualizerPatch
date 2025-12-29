@@ -23,7 +23,7 @@ export default function AboutPage() {
         <div className="bg-gray-800 rounded-lg p-8 shadow-lg max-w-md w-full">
           <h2 className="text-2xl font-semibold text-white mb-6">Information</h2>
         <a href={CANVA_LINK} target="_blank" rel="noreferrer" className="block">
-          <div className="bg-black rounded-md p-6 flex items-center gap-2 transition-transform duration-300 ease-out hover:scale-105 hover:shadow-2xl">
+          <div className="bg-black rounded-lg overflow-hidden p-6 flex items-center gap-2 transition-transform duration-300 ease-out hover:scale-105 hover:shadow-2xl">
             <div className="flex-shrink-0 flex items-center">
               <svg width="48" height="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="text-white">
                 <rect x="3" y="3" width="14" height="18" rx="2" fill="none" stroke="#ffffff" strokeWidth="1.2"/>

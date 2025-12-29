@@ -75,7 +75,8 @@ class Canvas extends Component {
         const cansvas2 = this.canvasLineRef.current;
         const ctx2 = cansvas2.getContext('2d');
         ctx2.clearRect(0, 0, canvas.width, canvas.height);
-        this.setState({ lines: res[1] });
+        // store both the sequence of lines (operations) and the final hull pairs
+        this.setState({ lines: res[1], hullPairs: res[0] });
 
     }
 
@@ -87,12 +88,30 @@ class Canvas extends Component {
         // Use glowing cyan for connecting lines
         ctx2.fillStyle = '#ffffff';
         ctx2.strokeStyle = '#00FFFF';
+        // build a fast lookup of final hull edges (pairs) so we can color them differently
+        const hull = this.state.hullPairs || [];
+        const hullEdgeSet = new Set();
+        for (let j = 0; j < hull.length; j++) {
+            const a = hull[j];
+            const b = hull[(j + 1) % hull.length];
+            if (a && b) {
+                const key1 = `${a.xx},${a.yy}|${b.xx},${b.yy}`;
+                const key2 = `${b.xx},${b.yy}|${a.xx},${a.yy}`;
+                hullEdgeSet.add(key1);
+                hullEdgeSet.add(key2);
+            }
+        }
+
         for (let i = 0; i < lines.length; i++) {
             if (!this.props.onGoing) {
                 ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
                 return;
             }
             ctx2.beginPath();
+            // determine whether this edge is part of the final hull
+            const edgeKey = `${lines[i].from.xx},${lines[i].from.yy}|${lines[i].to.xx},${lines[i].to.yy}`;
+            const isHullEdge = hullEdgeSet.has(edgeKey);
+
             if (lines[i].add) {
                 ctx2.beginPath();
                 ctx2.lineWidth = 2;
@@ -109,11 +128,20 @@ class Canvas extends Component {
                 ctx2.fill();
                 ctx2.closePath();
 
-                ctx2.beginPath();
-                ctx2.lineWidth = 3;
-                ctx2.strokeStyle = '#00f7ef';
-                ctx2.shadowColor = 'rgba(0,247,239,0.9)';
-                ctx2.shadowBlur = 12;
+                // hull edges should be glowing blue; inner connecting edges should be light gray glow
+                if (isHullEdge) {
+                    ctx2.beginPath();
+                    ctx2.lineWidth = 3;
+                    ctx2.strokeStyle = '#00f7ef';
+                    ctx2.shadowColor = 'rgba(0,247,239,0.9)';
+                    ctx2.shadowBlur = 12;
+                } else {
+                    ctx2.beginPath();
+                    ctx2.lineWidth = 2.5;
+                    ctx2.strokeStyle = '#d1d5db'; // light gray
+                    ctx2.shadowColor = 'rgba(210,213,219,0.9)';
+                    ctx2.shadowBlur = 10;
+                }
             } else {
                 ctx2.beginPath();
                 ctx2.fillStyle = 'whitesmoke';
@@ -129,10 +157,18 @@ class Canvas extends Component {
                 ctx2.fill();
                 ctx2.closePath();
 
-                ctx2.lineWidth = 3;
-                ctx2.strokeStyle = '#00f7ef';
-                ctx2.shadowColor = 'rgba(0,200,220,0.8)';
-                ctx2.shadowBlur = 10;
+                // also respect whether this edge belongs to the outer hull
+                if (isHullEdge) {
+                    ctx2.lineWidth = 3;
+                    ctx2.strokeStyle = '#00f7ef';
+                    ctx2.shadowColor = 'rgba(0,200,220,0.8)';
+                    ctx2.shadowBlur = 10;
+                } else {
+                    ctx2.lineWidth = 2.5;
+                    ctx2.strokeStyle = '#d1d5db';
+                    ctx2.shadowColor = 'rgba(200,200,200,0.8)';
+                    ctx2.shadowBlur = 8;
+                }
             }
 
             ctx2.moveTo(lines[i].from.xx, lines[i].from.yy);

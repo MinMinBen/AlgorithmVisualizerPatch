@@ -33,7 +33,7 @@ export function PresetSelector({ algorithmName, onPresetSelect, className = "" }
             <button
               key={preset.id}
               onClick={() => onPresetSelect(preset)}
-              className="px-6 py-3 bg-black hover:opacity-90 text-white rounded-md transition-colors font-semibold text-lg"
+              className="px-3 py-2 bg-black hover:opacity-90 text-white rounded-md transition-colors font-semibold text-sm"
               title={preset.description}
             >
               {preset.name}
